@@ -27,17 +27,17 @@ The system consists of two main pipelines managed by the Haystack orchestration 
 ```mermaid
 graph TD
     subgraph "Indexing Pipeline (ETL)"
-        A[PDF File] -->|PyPDFToDocument| B(Text Extraction)
-        B -->|Cleaner| C(Preprocessing)
-        C -->|Splitter| D(Chunking)
-        D -->|Ollama Embedder| E(Vector Embedding)
-        E -->|Writer| F[(Qdrant Vector DB)]
+        A["PDF File"] -->|PyPDFToDocument| B("Text Extraction")
+        B -->|Cleaner| C("Preprocessing")
+        C -->|Splitter| D("Chunking")
+        D -->|Ollama Embedder| E("Vector Embedding")
+        E -->|Writer| F[("Qdrant Vector DB")]
     end
 
     subgraph "RAG Pipeline (Inference)"
-        G[User Question] -->|Ollama Embedder| H(Query Embedding)
+        G["User Question"] -->|Ollama Embedder| H("Query Embedding")
         H -->|Retriever| F
-        F -->|Top-k Documents| I(Prompt Builder)
-        I -->|Context + Question| J[Local LLM (Phi-3)]
-        J -->|Answer| K[Streamlit UI]
+        F -->|Top-k Documents| I("Prompt Builder")
+        I -->|Context + Question| J["Local LLM (Phi-3)"]
+        J -->|Answer| K["Streamlit UI"]
     end
